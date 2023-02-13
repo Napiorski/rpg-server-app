@@ -5,6 +5,8 @@ import { AppService } from './app.service';
 import { StudentSchema } from './schema/student.schema';
 import { StudentController } from './controller/student.controller';
 import { StudentService } from './service/student.service';
+import { CharacterService } from './character/character.service';
+import { CharacterController } from './character/character.controller';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -18,7 +20,7 @@ dotenv.config();
     ),
     MongooseModule.forFeature([{ name: 'Student', schema: StudentSchema }]),
   ],
-  controllers: [AppController, StudentController],
-  providers: [AppService, StudentService],
+  controllers: [AppController, StudentController, CharacterController],
+  providers: [AppService, StudentService, CharacterService],
 })
 export class AppModule {}
