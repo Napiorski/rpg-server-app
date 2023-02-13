@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { StudentSchema } from './schema/student.schema';
+import { StudentSchema } from './schemas/student.schema';
 import { StudentController } from './controller/student.controller';
 import { StudentService } from './service/student.service';
 import { CharacterService } from './character/character.service';
