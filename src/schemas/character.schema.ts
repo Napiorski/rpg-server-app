@@ -2,7 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema()
 export class Character {
   @Prop({ type: String, required: true, MAX_LENGTH: 30 })
-  name: string;
+  characterName: string;
+
+  @Prop({ type: String, required: true, MAX_LENGTH: 30 })
+  playerName: string;
 
   @Prop({ type: Number, required: true, MIN_VALUE: 1, MAX_VALUE: 300 })
   age: number;
