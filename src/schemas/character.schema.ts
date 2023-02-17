@@ -10,11 +10,11 @@ export class Character {
   @Prop({ type: Number, required: true, MIN_VALUE: 1, MAX_VALUE: 300 })
   age: number;
 
-  @Prop({ type: String, required: true, MAX_LENGTH: 5 })
-  weight: string;
+  @Prop({ type: Number, required: true, MIN_VALUE: 1, MAX_VALUE: 500 })
+  weight: number;
 
-  @Prop({ type: String, required: true, MAX_LENGTH: 7 })
-  height: string;
+  @Prop({ type: Number, required: true, MIN_VALUE: 1, MAX_VALUE: 100 })
+  height: number;
 
   @Prop({ type: String, required: true, MAX_LENGTH: 500 })
   backstory: string;
@@ -28,7 +28,7 @@ export class Character {
   @Prop({ type: String, required: true })
   class: string;
 
-  @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 100 })
+  @Prop({ type: Number, required: true, MIN_VALUE: 1, MAX_VALUE: 100 })
   level: number;
 
   @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 10000 })
@@ -37,8 +37,8 @@ export class Character {
   @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 1000 })
   maxHp: number;
 
-  @Prop({ type: String, required: true, MAX_LENGTH: 30 })
-  condition: string;
+  //@Prop({ type: String, required: true, MAX_LENGTH: 30 })
+  //condition: string;
 
   @Prop({ type: Number, required: false, MIN_VALUE: 0, MAX_VALUE: 1000 })
   currentHp: number;
@@ -47,7 +47,7 @@ export class Character {
   armorClass: number;
 
   @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 10 })
-  init: number;
+  initiative: number;
 
   @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 120 })
   speed: number;
@@ -61,7 +61,7 @@ export class Character {
   @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 10 })
   perception: number;
 
-  @Prop({ type: Number, required: true, MIN_VALUE: 1, MAX_VALUE: 10 })
+  @Prop({ type: Number, required: true, MIN_VALUE: 1, MAX_VALUE: 20 })
   hitDice: number;
 
   @Prop({ type: Boolean, required: false })
@@ -114,4 +114,4 @@ export class Character {
 
   //Need Spell Props and Proficiency Props
 }
-export const StudentSchema = SchemaFactory.createForClass(Character);
+export const CharacterSchema = SchemaFactory.createForClass(Character);

@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StudentSchema } from './schemas/student.schema';
+import { CharacterSchema } from './schemas/character.schema';
 import { StudentController } from './controller/student.controller';
 import { StudentService } from './service/student.service';
 import { CharacterService } from './character/character.service';
@@ -18,7 +19,10 @@ dotenv.config();
         dbName: 'dnd-app',
       },
     ),
-    MongooseModule.forFeature([{ name: 'Student', schema: StudentSchema }]),
+    MongooseModule.forFeature([
+      { name: 'Student', schema: StudentSchema },
+      { name: 'Character', schema: CharacterSchema },
+    ]),
   ],
   controllers: [AppController, StudentController, CharacterController],
   providers: [AppService, StudentService, CharacterService],
