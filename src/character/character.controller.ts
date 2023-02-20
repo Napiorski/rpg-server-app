@@ -7,9 +7,11 @@ import {
   Res,
   Body,
   HttpStatus,
+  Param,
 } from '@nestjs/common';
 import { response } from 'express';
 import { CreateCharacterDto } from 'src/dto/create-character.dto';
+import { UpdateCharacterDto } from 'src/dto/update-character.dto';
 import { CharacterService } from './character.service';
 
 @Controller('character')
@@ -36,6 +38,69 @@ export class CharacterController {
         message: 'Error: Character not created!',
         error: 'Bad Request',
       });
+    }
+  }
+
+  @Get()
+  async getCharacters(@Res() response) {
+    try {
+      const characterData = await this.characterService.getCharacters();
+      return response.status(HttpStatus.OK).json({
+        message: 'All character data found successfully',
+        characterData,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
+  }
+
+  @Get('/:id')
+  async getCharacter(@Res() response, @Param('id') characterId: string) {
+    try {
+      const existingCharacter = await this.characterService.getCharacter(
+        characterId,
+      );
+      return response.status(HttpStatus.OK).json({
+        message: 'Character found successfully',
+        existingCharacter,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
+  }
+
+  @Delete('/:id')
+  async deleteCharacter(@Res() response, @Param('id') characterId: string) {
+    try {
+      const deletedCharacter = await this.characterService.deleteCharacter(
+        characterId,
+      );
+      return response.status(HttpStatus.OK).json({
+        message: 'Character deleted successfully',
+        deletedCharacter,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
+  }
+
+  @Put('/:id')
+  async updateCharacter(
+    @Res() response,
+    @Param('id') characterId: string,
+    @Body() updateCharacterDto: UpdateCharacterDto,
+  ) {
+    try {
+      const existingCharacter = await this.characterService.updateCharacter(
+        characterId,
+        updateCharacterDto,
+      );
+      return response.status(HttpStatus.OK).json({
+        message: 'Character has been successfully updated',
+        existingCharacter,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
     }
   }
 }
