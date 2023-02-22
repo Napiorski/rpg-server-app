@@ -7,6 +7,8 @@ import {
   Min,
   Max,
   IsBoolean,
+  IsDate,
+  IsDateString,
 } from 'class-validator';
 export class CreateUserDto {
   @IsString()
@@ -18,22 +20,19 @@ export class CreateUserDto {
   @MaxLength(30)
   readonly lastName: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
-  @Min(1)
-  @Max(20)
-  readonly password: number;
+  @MinLength(7)
+  @MaxLength(20)
+  readonly password: string;
 
   @IsNumber()
   @IsNotEmpty()
-  @Min(8)
-  @Max(9)
   readonly phoneNumber: number;
 
-  @IsString()
-  @MaxLength(30)
+  @IsDateString()
   @IsNotEmpty()
-  readonly birthday: string;
+  readonly birthday: Date;
 
   @IsString()
   @MaxLength(30)

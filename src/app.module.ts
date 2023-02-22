@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { StudentSchema } from './schemas/student.schema';
 import { CharacterSchema } from './schemas/character.schema';
-import { StudentController } from './controller/student.controller';
-import { StudentService } from './service/student.service';
 import { CharacterService } from './character/character.service';
 import { CharacterController } from './character/character.controller';
 import * as dotenv from 'dotenv';
+import { UserController } from './user/user.controller';
+import { UserSchema } from './schemas/user.schema';
+import { UserService } from './user/user.service';
 dotenv.config();
 
 @Module({
@@ -20,11 +20,11 @@ dotenv.config();
       },
     ),
     MongooseModule.forFeature([
-      { name: 'Student', schema: StudentSchema },
+      { name: 'User', schema: UserSchema },
       { name: 'Character', schema: CharacterSchema },
     ]),
   ],
-  controllers: [AppController, StudentController, CharacterController],
-  providers: [AppService, StudentService, CharacterService],
+  controllers: [AppController, UserController, CharacterController],
+  providers: [AppService, UserService, CharacterService],
 })
 export class AppModule {}

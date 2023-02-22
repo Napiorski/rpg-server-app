@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 @Schema()
-export class Character {
+export class Monster {
   @Prop({ type: String, required: true, MAX_LENGTH: 30 })
   monsterName: string;
 
