@@ -6,9 +6,11 @@ import { CharacterSchema } from './schemas/character.schema';
 import { CharacterService } from './character/character.service';
 import { CharacterController } from './character/character.controller';
 import * as dotenv from 'dotenv';
-import { UserController } from './user/user.controller';
+import { UsersController } from './users/users.controller';
 import { UserSchema } from './schemas/user.schema';
-import { UserService } from './user/user.service';
+import { UsersService } from './users/users.service';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 dotenv.config();
 
 @Module({
@@ -23,8 +25,10 @@ dotenv.config();
       { name: 'User', schema: UserSchema },
       { name: 'Character', schema: CharacterSchema },
     ]),
+    AuthModule,
+    UsersModule,
   ],
-  controllers: [AppController, UserController, CharacterController],
-  providers: [AppService, UserService, CharacterService],
+  controllers: [AppController, UsersController, CharacterController],
+  providers: [AppService, UsersService, CharacterService],
 })
 export class AppModule {}
