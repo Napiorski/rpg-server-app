@@ -5,6 +5,7 @@ import { UpdateUserDto } from 'src/dto/update-user.dto';
 import { User } from 'src/schemas/user.schema';
 
 @Injectable()
+// We want CRUD: create, read, update, delete
 export class UsersService {
   constructor(@InjectModel('User') private userModel: Model<User>) {}
   async createUser(username: string, password: string): Promise<User> {
@@ -12,7 +13,6 @@ export class UsersService {
     return newUser.save();
   }
 
-  // We want CRUD: create, read, update, delete
   async getUsers(): Promise<User[]> {
     const userData = await this.userModel.find();
     if (!userData || userData.length == 0) {
