@@ -11,6 +11,8 @@ import { UserSchema } from './schemas/user.schema';
 import { UsersService } from './users/users.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { MonsterService } from './monster/monster.service';
+import { MonsterController } from './monster/monster.controller';
 dotenv.config();
 
 @Module({
@@ -28,7 +30,12 @@ dotenv.config();
     AuthModule,
     UsersModule,
   ],
-  controllers: [AppController, UsersController, CharacterController],
-  providers: [AppService, UsersService, CharacterService],
+  controllers: [
+    AppController,
+    UsersController,
+    CharacterController,
+    MonsterController,
+  ],
+  providers: [AppService, UsersService, CharacterService, MonsterService],
 })
 export class AppModule {}
