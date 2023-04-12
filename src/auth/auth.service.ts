@@ -21,6 +21,11 @@ export class AuthService {
     return null;
   }
 
+  /**
+   * At this point we should now have a valid user. See the HTTP POST auth/login
+   * @param user
+   * @returns
+   */
   async login(user: any) {
     const payload = { username: user.username, sub: user.userId };
     console.log(`AuthService login > typeof user: ${typeof user}`);
