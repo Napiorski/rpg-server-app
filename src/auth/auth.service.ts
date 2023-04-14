@@ -18,6 +18,8 @@ export class AuthService {
       const { username, _id } = user;
       return { username, userId: _id };
     }
+
+    console.log('validateUser did not find user: ', user);
     return null;
   }
 
@@ -31,6 +33,9 @@ export class AuthService {
     console.log(`AuthService login > typeof user: ${typeof user}`);
     console.log(`AuthService login > user: ${JSON.stringify(user)}`);
     console.log(`AuthService login > payload: ${JSON.stringify(payload)}`);
+    console.log(
+      `AuthService login > new access_token: ${this.jwtService.sign(payload)}`,
+    );
     return {
       access_token: this.jwtService.sign(payload),
     };
