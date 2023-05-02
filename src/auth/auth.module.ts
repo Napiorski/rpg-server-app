@@ -13,7 +13,7 @@ import { JwtStrategy } from './jwt.strategy';
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '86400s' }, // JWT expires in 24 hours
+      signOptions: { expiresIn: '30m' }, // JWT expires in 24 hours
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],

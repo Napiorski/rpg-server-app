@@ -13,6 +13,7 @@ import { response } from 'express';
 import { CreateCharacterDto } from 'src/dto/create-character.dto';
 import { UpdateCharacterDto } from 'src/dto/update-character.dto';
 import { CharacterService } from './character.service';
+import { Character } from 'src/schemas/character.schema';
 
 @Controller('character')
 export class CharacterController {
@@ -54,17 +55,17 @@ export class CharacterController {
     }
   }
 
-  @Get('/:id')
-  async getCharacter(@Res() response, @Param('id') characterId: string) {
+  @Get('/:username')
+  async getCharacter(@Res() response, @Param('username') username: string) {
     try {
-      const existingCharacter = await this.characterService.getCharacter(
-        characterId,
-      );
+      const existingCharacter =
+        await this.characterService.getCharacterByUsername(username);
       return response.status(HttpStatus.OK).json({
         message: 'Character found successfully',
         existingCharacter,
       });
     } catch (err) {
+      console.log('getCharacter error:', err);
       return response.status(err.status).json(err.response);
     }
   }

@@ -7,7 +7,12 @@ import {
   Min,
   Max,
   IsBoolean,
+  ValidateNested,
+  IsDefined,
+  IsNotEmptyObject,
 } from 'class-validator';
+import { SavingThrowsDto } from './saving-throws.dto';
+import { Type } from 'class-transformer';
 export class CreateCharacterDto {
   @IsString()
   @MaxLength(30)
@@ -123,8 +128,11 @@ export class CreateCharacterDto {
   @Max(20)
   readonly hitDice: number;
 
-  @IsBoolean()
-  readonly savingThrows: boolean;
+  @IsDefined()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => SavingThrowsDto)
+  savingThrows: SavingThrowsDto;
 
   @IsBoolean()
   readonly deathSaves: boolean;

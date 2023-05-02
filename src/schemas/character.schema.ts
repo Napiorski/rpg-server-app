@@ -1,6 +1,36 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+
+@Schema()
+class SavingThrows {
+  @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 10 })
+  strength: number;
+
+  @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 10 })
+  dexterity: number;
+
+  @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 10 })
+  constitution: number;
+
+  @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 10 })
+  intelligence: number;
+
+  @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 10 })
+  wisdom: number;
+
+  @Prop({ type: Number, required: true, MIN_VALUE: 0, MAX_VALUE: 10 })
+  charisma: number;
+}
+
+const savingThrowsSchema = SchemaFactory.createForClass(SavingThrows);
+
 @Schema()
 export class Character {
+  @Prop({ type: savingThrowsSchema, required: true })
+  savingThrows: SavingThrows;
+
+  @Prop({ type: String, required: true, MAX_LENGTH: 30 })
+  username: string;
+
   @Prop({ type: String, required: true, MAX_LENGTH: 30 })
   characterName: string;
 
@@ -63,9 +93,6 @@ export class Character {
 
   @Prop({ type: Number, required: true, MIN_VALUE: 1, MAX_VALUE: 20 })
   hitDice: number;
-
-  @Prop({ type: Boolean, required: false })
-  savingThrows: boolean;
 
   @Prop({ type: Boolean, required: false })
   deathSaves: boolean;
