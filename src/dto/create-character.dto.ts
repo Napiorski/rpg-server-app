@@ -10,9 +10,11 @@ import {
   ValidateNested,
   IsDefined,
   IsNotEmptyObject,
+  IsOptional,
 } from 'class-validator';
 import { SavingThrowsDto } from './saving-throws.dto';
 import { Type } from 'class-transformer';
+import { AttackTypesDto } from './attack-types.dto';
 export class CreateCharacterDto {
   @IsString()
   @MaxLength(30)
@@ -133,6 +135,10 @@ export class CreateCharacterDto {
   @ValidateNested()
   @Type(() => SavingThrowsDto)
   savingThrows: SavingThrowsDto;
+
+  @ValidateNested({ each: true })
+  @Type(() => AttackTypesDto)
+  attackTypes: AttackTypesDto[];
 
   @IsBoolean()
   readonly deathSaves: boolean;
