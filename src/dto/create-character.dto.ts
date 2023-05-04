@@ -138,17 +138,17 @@ export class CreateCharacterDto {
   @Type(() => SavingThrowsDto)
   savingThrows: SavingThrowsDto;
 
-  @IsDefined()
-  @IsNotEmptyObject()
-  @ValidateNested()
-  @Type(() => ProficienciesDto)
-  proficiencies: ProficienciesDto;
+  // @IsDefined()
+  // @IsNotEmptyObject()
+  // @ValidateNested()
+  // @Type(() => ProficienciesDto)
+  // proficiencies: ProficienciesDto;
 
-  @IsDefined()
-  @IsNotEmptyObject()
-  @ValidateNested()
-  @Type(() => CharacteristicsDto)
-  characteristics: CharacteristicsDto;
+  // @IsDefined()
+  // @IsNotEmptyObject()
+  // @ValidateNested()
+  // @Type(() => CharacteristicsDto)
+  // characteristics: CharacteristicsDto;
 
   @ValidateNested({ each: true })
   @Type(() => AttackTypesDto)

@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { AttackTypes, attackTypesSchema } from './attack-types.schema';
 
 @Schema()
 class SavingThrows {
@@ -27,6 +28,9 @@ const savingThrowsSchema = SchemaFactory.createForClass(SavingThrows);
 export class Character {
   @Prop({ type: savingThrowsSchema, required: true })
   savingThrows: SavingThrows;
+
+  @Prop({ type: [attackTypesSchema], required: true })
+  attackTypes: AttackTypes[];
 
   @Prop({ type: String, required: true, MAX_LENGTH: 30 })
   username: string;
