@@ -15,6 +15,7 @@ import {
 import { SavingThrowsDto } from './saving-throws.dto';
 import { Type } from 'class-transformer';
 import { AttackTypesDto } from './attack-types.dto';
+import { ProficienciesDto } from './proficiencies.dto';
 export class CreateCharacterDto {
   @IsString()
   @MaxLength(30)
@@ -135,6 +136,12 @@ export class CreateCharacterDto {
   @ValidateNested()
   @Type(() => SavingThrowsDto)
   savingThrows: SavingThrowsDto;
+
+  @IsDefined()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => ProficienciesDto)
+  proficiencies: ProficienciesDto;
 
   @ValidateNested({ each: true })
   @Type(() => AttackTypesDto)
