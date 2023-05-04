@@ -16,6 +16,7 @@ import { SavingThrowsDto } from './saving-throws.dto';
 import { Type } from 'class-transformer';
 import { AttackTypesDto } from './attack-types.dto';
 import { ProficienciesDto } from './proficiencies.dto';
+import { CharacteristicsDto } from './characteristics.dto';
 export class CreateCharacterDto {
   @IsString()
   @MaxLength(30)
@@ -143,6 +144,12 @@ export class CreateCharacterDto {
   @Type(() => ProficienciesDto)
   proficiencies: ProficienciesDto;
 
+  @IsDefined()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => CharacteristicsDto)
+  characteristics: CharacteristicsDto;
+
   @ValidateNested({ each: true })
   @Type(() => AttackTypesDto)
   attackTypes: AttackTypesDto[];
@@ -168,24 +175,6 @@ export class CreateCharacterDto {
   @MaxLength(300)
   @IsNotEmpty()
   readonly background: string;
-
-  @IsString()
-  @MaxLength(300)
-  @IsNotEmpty()
-  readonly personality: string;
-
-  @IsString()
-  @MaxLength(300)
-  readonly ideals: string;
-
-  @IsString()
-  @MaxLength(300)
-  readonly bonds: string;
-
-  @IsString()
-  @MaxLength(15)
-  @IsNotEmpty()
-  readonly flaws: string;
 
   @IsString()
   @IsNotEmpty()
