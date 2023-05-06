@@ -10,24 +10,33 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCharacterDto } from 'src/dto/create-character.dto';
 import { UpdateCharacterDto } from 'src/dto/update-character.dto';
-import { ICharacter } from './character.interface';
+import { Character } from 'src/schemas/character.schema';
 
 @Injectable()
 export class CharacterService {
   constructor(
-    @InjectModel('Character') private characterModel: Model<ICharacter>,
+    @InjectModel('Character') private characterModel: Model<Character>,
   ) {}
 
+  async getCharacterByUsername(username: string): Promise<Character> {
+    const existingCharacter = await this.characterModel
+      .findOne({ username })
+      .exec();
+    if (!existingCharacter) {
+      throw new NotFoundException(`Username #${username} not found`);
+    }
+    return existingCharacter;
+  }
   async createCharacter(
     createCharacterDto: CreateCharacterDto,
-  ): Promise<ICharacter> {
+  ): Promise<Character> {
     const newCharacter = await new this.characterModel(createCharacterDto);
     return newCharacter.save();
   }
 
   // We want CRUD: create, read, update, delete
 
-  async getCharacters(): Promise<ICharacter[]> {
+  async getCharacters(): Promise<Character[]> {
     const characterData = await this.characterModel.find();
     if (!characterData || characterData.length == 0) {
       throw new NotFoundException('Character data not found!');
@@ -35,7 +44,7 @@ export class CharacterService {
     return characterData;
   }
 
-  async getCharacter(characterId: string): Promise<ICharacter> {
+  async getCharacter(characterId: string): Promise<Character> {
     const existingCharacter = await this.characterModel
       .findById(characterId)
       .exec();
@@ -45,7 +54,7 @@ export class CharacterService {
     return existingCharacter;
   }
 
-  async deleteCharacter(characterId: string): Promise<ICharacter> {
+  async deleteCharacter(characterId: string): Promise<Character> {
     const deletedCharacter = await this.characterModel.findByIdAndDelete(
       characterId,
     );
@@ -58,7 +67,7 @@ export class CharacterService {
   async updateCharacter(
     characterId: string,
     updateCharacterDto: UpdateCharacterDto,
-  ): Promise<ICharacter> {
+  ): Promise<Character> {
     const existingCharacter = await this.characterModel.findByIdAndUpdate(
       characterId,
       updateCharacterDto,

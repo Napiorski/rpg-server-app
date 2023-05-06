@@ -7,7 +7,16 @@ import {
   Min,
   Max,
   IsBoolean,
+  ValidateNested,
+  IsDefined,
+  IsNotEmptyObject,
+  IsOptional,
 } from 'class-validator';
+import { SavingThrowsDto } from './saving-throws.dto';
+import { Type } from 'class-transformer';
+import { AttackTypesDto } from './attack-types.dto';
+import { ProficienciesDto } from './proficiencies.dto';
+import { CharacteristicsDto } from './characteristics.dto';
 export class CreateCharacterDto {
   @IsString()
   @MaxLength(30)
@@ -123,8 +132,27 @@ export class CreateCharacterDto {
   @Max(20)
   readonly hitDice: number;
 
-  @IsBoolean()
-  readonly savingThrows: boolean;
+  @IsDefined()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => SavingThrowsDto)
+  savingThrows: SavingThrowsDto;
+
+  @IsDefined()
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ProficienciesDto)
+  proficiencies: ProficienciesDto;
+
+  @IsDefined()
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => CharacteristicsDto)
+  characteristics: CharacteristicsDto;
+
+  @ValidateNested({ each: true })
+  @Type(() => AttackTypesDto)
+  attackTypes: AttackTypesDto[];
 
   @IsBoolean()
   readonly deathSaves: boolean;
@@ -147,24 +175,6 @@ export class CreateCharacterDto {
   @MaxLength(300)
   @IsNotEmpty()
   readonly background: string;
-
-  @IsString()
-  @MaxLength(300)
-  @IsNotEmpty()
-  readonly personality: string;
-
-  @IsString()
-  @MaxLength(300)
-  readonly ideals: string;
-
-  @IsString()
-  @MaxLength(300)
-  readonly bonds: string;
-
-  @IsString()
-  @MaxLength(15)
-  @IsNotEmpty()
-  readonly flaws: string;
 
   @IsString()
   @IsNotEmpty()

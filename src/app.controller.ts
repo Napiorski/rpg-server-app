@@ -7,6 +7,11 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 export class AppController {
   constructor(private readonly authService: AuthService) {}
 
+  @Get()
+  getHello(): string {
+    return 'Hello World!';
+  }
+
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req) {
