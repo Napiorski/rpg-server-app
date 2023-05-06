@@ -1,5 +1,12 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AttackTypes, attackTypesSchema } from './attack-types.schema';
+import { CharacteristicsDto } from 'src/dto/characteristics.dto';
+import { ProficienciesDto } from 'src/dto/proficiencies.dto';
+import {
+  Characteristics,
+  characteristicsSchema,
+} from './characteristics.schema';
+import { Proficiencies, proficienciesSchema } from './proficiencies.schema';
 
 @Schema()
 class SavingThrows {
@@ -28,6 +35,12 @@ const savingThrowsSchema = SchemaFactory.createForClass(SavingThrows);
 export class Character {
   @Prop({ type: savingThrowsSchema, required: true })
   savingThrows: SavingThrows;
+
+  @Prop({ type: characteristicsSchema, required: false })
+  characteristics?: Characteristics;
+
+  @Prop({ type: proficienciesSchema, required: false })
+  proficiencies?: Proficiencies;
 
   @Prop({ type: [attackTypesSchema], required: true })
   attackTypes: AttackTypes[];
